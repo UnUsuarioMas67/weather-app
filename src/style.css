@@ -127,7 +127,8 @@ section {
   color: var(--color-text-dark);
 }
 
-#current-weather {
+#current-weather,
+.hourly-weather-item {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -154,6 +155,26 @@ section {
 
 #hourly-weather {
   grid-row: 3 / 4;
+  padding: 0;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 20%;
+  
+  overflow-x: auto;
+}
+
+.hourly-weather-item {
+  padding: 1rem 0 0.5rem;
+  height: 100%;
+}
+
+.hourly-weather-item:not(:last-child) {
+  border-right: 1px solid var(--color-border);
+}
+
+.hourly-temp {
+  font-weight: bold;
 }
 
 #forecast {
