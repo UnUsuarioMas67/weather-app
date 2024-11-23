@@ -11,9 +11,12 @@ async function fetchWeatherData(location, unitGroup = "metric") {
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=${API_KEY}&unitGroup=${unitGroup}&elements=tempmax,tempmin,temp,conditions,description,datetime,datetimeEpoch,hours,icon&iconSet=icons2`,
       { mode: "cors" },
     );
-    const weather = await response.json();
 
-    return weather;
+    if (response.ok) {
+      return await response.json();
+    } else {
+      return null;
+    }
   } catch (error) {
     console.log(error);
   }
