@@ -19,6 +19,7 @@ searchBtn.addEventListener("click", async () => {
 
   renderCurrentWeather(weather);
   renderHourlyWeather(weather);
+  renderForecast(weather);
   console.log(weather);
 });
 
@@ -65,26 +66,56 @@ const renderHourlyWeather = (weather) => {
   const hourlyWeatherSection = document.querySelector("#hourly-weather");
   hourlyWeatherSection.textContent = "";
 
-  for (const hour of data) {
+  for (const h of data) {
     const item = createElement("div", "hourly-weather-item");
 
     const weatherTime = createElement("p", "hourly-weather-time");
-    weatherTime.textContent = hour.time;
+    weatherTime.textContent = h.time;
 
     const iconContainer = createElement("div", "hourly-weather-icon");
     iconContainer.append(
       createElement("img", "", {
-        src: getIcon(hour.icon),
-        alt: hour.icon,
+        src: getIcon(h.icon),
+        alt: h.icon,
         width: "56",
       }),
     );
 
     const weatherTemp = createElement("p", "hourly-temp");
-    weatherTemp.textContent = temperature(hour.temp);
+    weatherTemp.textContent = temperature(h.temp);
 
     item.append(weatherTime, iconContainer, weatherTemp);
 
     hourlyWeatherSection.append(item);
+  }
+};
+
+const renderForecast = (weather) => {
+  const data = get6DaysForecast(weather);
+
+  const forecastContainer = document.querySelector("#forecast > .container");
+  forecastContainer.textContent = "";
+
+  for (const f of data) {
+    const item = createElement("div", "forecast-item");
+
+    const date = createElement("p", "forecast-date");
+    date.textContent = f.formattedDate;
+
+    const iconContainer = createElement("div", "forecast-icon");
+    iconContainer.append(
+      createElement("img", "", {
+        src: getIcon(f.icon),
+        alt: f.icon,
+        width: "48",
+      }),
+    );
+
+    const tempRange = createElement("p", "forecast-temp-range");
+    tempRange.textContent = `Min: ${temperature(f.tempmin)} | Max: ${temperature(f.tempmax)}`;
+
+    item.append(date, iconContainer, tempRange);
+
+    forecastContainer.append(item);
   }
 };
