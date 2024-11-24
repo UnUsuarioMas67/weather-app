@@ -10,6 +10,7 @@ import { createElement } from "./js/create-elem.js";
 
 const searchBtn = document.querySelector("#search-bar .search-btn");
 const searchInput = document.querySelector("#search-input");
+const unitSwitchBtn = document.querySelector("#unit-switch .unit-switch-btn");
 
 let useMetric = true;
 let latestSearch = "";
@@ -18,6 +19,16 @@ searchBtn.addEventListener("click", () => {
   performSearch(searchInput.value);
   latestSearch = searchInput.value;
 });
+
+unitSwitchBtn.addEventListener("click", () => {
+  useMetric = !useMetric;
+  unitSwitchBtn.classList.remove("metric", "us");
+  unitSwitchBtn.classList.add(useMetric ? "metric" : "us");
+
+  if (latestSearch !== "") {
+    performSearch(latestSearch);
+  }
+})
 
 const performSearch = async function(query) {
   const weather = await fetchWeatherData(query, useMetric ? "metric" : "us");
