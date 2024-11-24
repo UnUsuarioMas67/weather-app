@@ -6,6 +6,7 @@ import {
   get6DaysForecast,
 } from "./js/weather.js";
 import { getIcon } from "./js/icons.js";
+import { createElement } from "./js/create-elem.js";
 
 const searchBtn = document.querySelector("#search-bar .search-btn");
 const searchInput = document.querySelector("#search-input");
@@ -17,12 +18,13 @@ searchBtn.addEventListener("click", async () => {
   const weather = await fetchWeatherData(query, useMetric ? "metric" : "us");
 
   renderCurrentWeather(weather);
+  renderHourlyWeather(weather);
   console.log(weather);
 });
 
 const temperature = function (temp) {
-  return `${temp}${useMetric ? "ºC" : "ºF"}`
-}
+  return `${temp}${useMetric ? "ºC" : "ºF"}`;
+};
 
 const renderCurrentWeather = (weather) => {
   const cityName = document.querySelector("#current-weather .city-name");
@@ -55,4 +57,34 @@ const renderCurrentWeather = (weather) => {
   tempmaxElem.textContent = temperature(tempmax);
 
   conditionElem.textContent = conditions;
+};
+
+const renderHourlyWeather = (weather) => {
+  const data = get24HourWeather(weather);
+
+  const hourlyWeatherSection = document.querySelector("#hourly-weather");
+  hourlyWeatherSection.textContent = "";
+
+  for (const hour of data) {
+    const item = createElement("div", "hourly-weather-item");
+
+    const weatherTime = createElement("p", "hourly-weather-time");
+    weatherTime.textContent = hour.time;
+
+    const iconContainer = createElement("div", "hourly-weather-icon");
+    iconContainer.append(
+      createElement("img", "", {
+        src: getIcon(hour.icon),
+        alt: hour.icon,
+        width: "56",
+      }),
+    );
+
+    const weatherTemp = createElement("p", "hourly-temp");
+    weatherTemp.textContent = temperature(hour.temp);
+
+    item.append(weatherTime, iconContainer, weatherTemp);
+
+    hourlyWeatherSection.append(item);
+  }
 };
