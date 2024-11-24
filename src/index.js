@@ -20,6 +20,10 @@ searchBtn.addEventListener("click", async () => {
   console.log(weather);
 });
 
+const temperature = function (temp) {
+  return `${temp}${useMetric ? "ºC" : "ºF"}`
+}
+
 const renderCurrentWeather = (weather) => {
   const cityName = document.querySelector("#current-weather .city-name");
   const currentDate = document.querySelector("#current-weather .current-date");
@@ -46,9 +50,9 @@ const renderCurrentWeather = (weather) => {
   weatherIcon.src = getIcon(icon);
   weatherIcon.alt = icon;
 
-  currentTemp.textContent = `${temp}${useMetric ? "ºC" : "ºF"}`;
-  tempminElem.textContent = `${tempmin}${useMetric ? "ºC" : "ºF"}`;
-  tempmaxElem.textContent = `${tempmax}${useMetric ? "ºC" : "ºF"}`;
+  currentTemp.textContent = temperature(temp);
+  tempminElem.textContent = temperature(tempmin);
+  tempmaxElem.textContent = temperature(tempmax);
 
   conditionElem.textContent = conditions;
 };
