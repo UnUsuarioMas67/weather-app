@@ -12,16 +12,21 @@ const searchBtn = document.querySelector("#search-bar .search-btn");
 const searchInput = document.querySelector("#search-input");
 
 let useMetric = true;
+let latestSearch = "";
 
-searchBtn.addEventListener("click", async () => {
-  const query = searchInput.value;
+searchBtn.addEventListener("click", () => {
+  performSearch(searchInput.value);
+  latestSearch = searchInput.value;
+});
+
+const performSearch = async function(query) {
   const weather = await fetchWeatherData(query, useMetric ? "metric" : "us");
 
   renderCurrentWeather(weather);
   renderHourlyWeather(weather);
   renderForecast(weather);
   console.log(weather);
-});
+}
 
 const temperature = function (temp) {
   return `${temp}${useMetric ? "ºC" : "ºF"}`;
