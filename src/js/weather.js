@@ -5,18 +5,12 @@ import {
 
 const API_KEY = "HPBLYE9ZNT2US2HH8RP5DFP8X";
 
-async function fetchWeatherData(location, unitGroup = "metric") {
+async function fetchWeatherResponse(location, unitGroup = "metric") {
   try {
-    const response = await fetch(
+    return await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=${API_KEY}&unitGroup=${unitGroup}&elements=tempmax,tempmin,temp,conditions,description,datetime,datetimeEpoch,hours,icon&iconSet=icons2`,
       { mode: "cors" },
     );
-
-    if (response.ok) {
-      return await response.json();
-    } else {
-      return null;
-    }
   } catch (error) {
     console.log(error);
   }
@@ -94,7 +88,7 @@ function get6DaysForecast(weather) {
 }
 
 export {
-  fetchWeatherData,
+  fetchWeatherResponse,
   getCurrentWeather,
   get24HourWeather,
   get6DaysForecast,

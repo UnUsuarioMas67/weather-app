@@ -1,6 +1,6 @@
 import "./style.css";
 import {
-  fetchWeatherData,
+  fetchWeatherResponse,
   get24HourWeather,
   getCurrentWeather,
   get6DaysForecast,
@@ -32,16 +32,28 @@ unitSwitchBtn.addEventListener("click", () => {
   if (latestSearch !== "") {
     performSearch(latestSearch);
   }
-})
+});
 
-const performSearch = async function(query) {
-  const weather = await fetchWeatherData(query, useMetric ? "metric" : "us");
-
-  renderCurrentWeather(weather);
-  renderHourlyWeather(weather);
-  renderForecast(weather);
-  console.log(weather);
-}
+const performSearch = async function (query) {
+  try {
+    const response = await fetchWeatherResponse(
+      query,
+      useMetric ? "metric" : "us",
+    );
+    console.log(response);
+  
+    if (response.ok) {
+      const weather = await response.json();
+      renderCurrentWeather(weather);
+      renderHourlyWeather(weather);
+      renderForecast(weather);
+    } else if (response.status === 400) {
+    } else {
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const temperature = function (temp) {
   return `${temp}${useMetric ? "ºC" : "ºF"}`;
