@@ -16,6 +16,10 @@ let useMetric = true;
 let latestSearch = "";
 
 searchBtn.addEventListener("click", () => {
+  if (searchInput.value.trim() === "") {
+    return;
+  }
+
   performSearch(searchInput.value);
   latestSearch = searchInput.value;
 });
