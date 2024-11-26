@@ -239,6 +239,10 @@ section {
   border-radius: 1rem;
 }
 
+#error-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5)
+}
+
 #error-dialog .dialog-inner {
   display: flex;
   flex-direction: column;
