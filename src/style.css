@@ -173,7 +173,7 @@ section {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 20%;
-  
+
   overflow-x: auto;
 }
 
@@ -224,4 +224,43 @@ section {
 
 .forecast-temp-range {
   font-weight: bold;
+}
+
+#error-dialog {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+  font-size: 1.25rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 1rem;
+}
+
+#error-dialog .dialog-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1rem 4rem 2rem;
+}
+
+#error-dialog .dialog-inner > svg {
+  fill: #f59e0b;
+}
+
+#error-dialog .close-btn {
+  align-self: end;
+  background: none;
+  border: none;
+
+  display: grid; /* This will center the X icon */
+
+  position: relative;
+  right: -3rem;
+
+  cursor: pointer;
 }
