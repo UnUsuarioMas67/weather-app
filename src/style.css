@@ -20,8 +20,8 @@ body {
   background: var(--gradient-bg);
   min-height: 100vh;
 
-  align-content: center;
-  justify-items: center;
+  display: grid;
+  place-items: center;
 }
 
 main {
