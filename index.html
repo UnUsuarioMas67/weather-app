@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App | The Odin Project</title>
+<script defer src="main.js"></script></head>
+
+<body>
+  <main>
+    <section id="search-bar">
+      <span class="search-error-message" hidden>
+        Could not find the specified location
+      </span>
+      <input type="text" name="search-input" id="search-input" placeholder="Enter a location">
+      <button type="button" class="search-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24">
+          <title>magnify</title>
+          <path
+            d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+        </svg>
+      </button>
+    </section>
+
+    <section id="unit-switch">
+      <div class="unit-switch-btn metric">
+        <div class="celsius">
+          ºC
+        </div>
+        <div class="fahrenheit">
+          ºF
+        </div>
+      </div>
+    </section>
+
+    <section id="current-weather">
+      <div>
+        <p class="city-name">--</p>
+        <p class="current-date">--</p>
+      </div>
+
+      <div class="current-weather-icon">
+        <img src="b3bf211cc12293dba117.svg" alt="" width="160">
+      </div>
+
+      <div>
+        <p class="current-temp">--</p>
+        <p class="current-condition">--</p>
+        <p class="current-temp-range">
+          Min:
+          <span class="current-temp-min">--</span>
+          &nbsp;|&nbsp;
+          Max:
+          <span class="current-temp-max">--</span>
+        </p>
+      </div>
+    </section>
+
+    <section id="hourly-weather">
+    </section>
+
+    <section id="forecast">
+      <p class="forecast-title">6 Day Forecast</p>
+
+      <div class="container">       
+      </div>
+    </section>
+    
+    <dialog id="error-dialog">
+      <div class="dialog-inner">
+        <button type="button" class="close-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32"><title>close</title><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+        </button>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="196"><title>alert</title><path d="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z" /></svg>
+        <p>Something went wrong! Sorry.</p>
+      </div>
+    </dialog>
+  </main>
+</body>
+
+</html>
