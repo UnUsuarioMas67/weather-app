@@ -41,13 +41,19 @@ const performSearch = async function (query) {
       useMetric ? "metric" : "us",
     );
     console.log(response);
+
+    const errorMsg = document.querySelector("#search-bar .search-error-message");
   
     if (response.ok) {
       const weather = await response.json();
       renderCurrentWeather(weather);
       renderHourlyWeather(weather);
       renderForecast(weather);
+
+      errorMsg.hidden = true;
     } else if (response.status === 400) {
+      errorMsg.hidden = false;
+      clearPage();
     } else {
     }
   } catch (error) {
@@ -151,3 +157,39 @@ const renderForecast = (weather) => {
     forecastContainer.append(item);
   }
 };
+
+const clearPage = () => {
+  const cityName = document.querySelector("#current-weather .city-name");
+  const currentDate = document.querySelector("#current-weather .current-date");
+  const weatherIcon = document.querySelector(
+    "#current-weather .current-weather-icon > img",
+  );
+  const currentTemp = document.querySelector("#current-weather .current-temp");
+  const conditionElem = document.querySelector(
+    "#current-weather .current-condition",
+  );
+  const tempminElem = document.querySelector(
+    "#current-weather .current-temp-min",
+  );
+  const tempmaxElem = document.querySelector(
+    "#current-weather .current-temp-max",
+  );
+
+  cityName.textContent = "--";
+  currentDate.textContent = "--";
+
+  weatherIcon.src = getIcon("cloudy");
+  weatherIcon.alt = "";
+
+  currentTemp.textContent = "--";
+  tempminElem.textContent = "--";
+  tempmaxElem.textContent = "--";
+
+  conditionElem.textContent = "--";
+
+  const hourlyWeatherSection = document.querySelector("#hourly-weather");
+  hourlyWeatherSection.textContent = "";
+
+  const forecastContainer = document.querySelector("#forecast > .container");
+  forecastContainer.textContent = "";
+}
