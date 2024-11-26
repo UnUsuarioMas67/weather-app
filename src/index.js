@@ -21,7 +21,6 @@ searchBtn.addEventListener("click", () => {
   }
 
   performSearch(searchInput.value);
-  latestSearch = searchInput.value;
 });
 
 unitSwitchBtn.addEventListener("click", () => {
@@ -42,8 +41,10 @@ const performSearch = async function (query) {
     );
     console.log(response);
 
-    const errorMsg = document.querySelector("#search-bar .search-error-message");
-  
+    const errorMsg = document.querySelector(
+      "#search-bar .search-error-message",
+    );
+
     if (response.ok) {
       const weather = await response.json();
       renderCurrentWeather(weather);
@@ -51,6 +52,7 @@ const performSearch = async function (query) {
       renderForecast(weather);
 
       errorMsg.hidden = true;
+      latestSearch = query;
     } else if (response.status === 400) {
       errorMsg.hidden = false;
       clearPage();
@@ -192,4 +194,4 @@ const clearPage = () => {
 
   const forecastContainer = document.querySelector("#forecast > .container");
   forecastContainer.textContent = "";
-}
+};
