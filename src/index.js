@@ -12,6 +12,9 @@ const searchBtn = document.querySelector("#search-bar .search-btn");
 const searchInput = document.querySelector("#search-input");
 const unitSwitchBtn = document.querySelector("#unit-switch .unit-switch-btn");
 
+const errorDialog = document.querySelector("#error-dialog");
+const closeBtn = document.querySelector("#error-dialog .close-btn");
+
 let useMetric = true;
 let latestSearch = "";
 
@@ -21,6 +24,9 @@ searchBtn.addEventListener("click", () => {
   }
 
   performSearch(searchInput.value);
+});
+closeBtn.addEventListener("click", () => {
+  errorDialog.close();
 });
 
 unitSwitchBtn.addEventListener("click", () => {
@@ -54,9 +60,11 @@ const performSearch = async function (query) {
       errorMsg.hidden = true;
       latestSearch = query;
     } else if (response.status === 400) {
-      errorMsg.hidden = false;
       clearPage();
+      errorMsg.hidden = false;
     } else {
+      clearPage();
+      errorDialog.showModal();
     }
   } catch (error) {
     console.log(error);
